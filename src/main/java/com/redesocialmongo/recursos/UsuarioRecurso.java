@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.redesocialmongo.dominio.Post;
 import com.redesocialmongo.dominio.Usuario;
 import com.redesocialmongo.dto.UsuarioDTO;
 import com.redesocialmongo.servico.UsuarioServico;
@@ -67,5 +68,12 @@ public class UsuarioRecurso {
 		usuario = servico.atualizar(usuario);
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<List<Post>> buscarPosts(@PathVariable String id) {
+		
+		Usuario u = servico.buscarPorId(id);
+		return ResponseEntity.ok().body(u.getPosts());
 	}
 }
