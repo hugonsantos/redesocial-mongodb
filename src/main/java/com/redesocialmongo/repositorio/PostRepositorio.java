@@ -1,5 +1,6 @@
 package com.redesocialmongo.repositorio;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,4 +16,7 @@ public interface PostRepositorio extends MongoRepository<Post, String> {
 	List<Post> buscarTitulo(String texto);
 	
 	List<Post> findByTituloContainingIgnoreCase(String texto);
+	
+	@Query("{ $and: [ { data: {$gte: ?1} }, { data: { $lte: ?2} }, { $or: [ { 'titulo': { $regex: ?0, $options: 'i' } }, { 'conteudo': { $regex: ?0, $options: 'i' } }, { 'comentarios.texto': { $regex: ?0, $options: 'i' } } ] } ] }")
+	List<Post> buscarTudo(String texto, Date dataMin, Date dataMax);
 }

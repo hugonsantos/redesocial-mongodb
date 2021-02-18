@@ -1,5 +1,6 @@
 package com.redesocialmongo.servico;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,11 @@ public class PostServico {
 	
 	public List<Post> buscarTitulo(String texto) {
 		return repositorio.buscarTitulo(texto);
+	}
+	
+	public List<Post> buscarTudo(String texto, Date dataMin, Date dataMax) {
+		dataMax = new Date(dataMax.getTime() + 24 * 60 * 60 * 1000);
+		return repositorio.buscarTudo(texto, dataMin, dataMax);
 	}
 	
 	public Post buscarPorId(String id) {

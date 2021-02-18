@@ -1,5 +1,6 @@
 package com.redesocialmongo.recursos;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,17 @@ public class PostRecurso {
 		texto = URL.decodificarParametro(texto);
 		
 		List<Post> posts = servico.buscarTitulo(texto);
+		return ResponseEntity.ok().body(posts);
+	}
+	
+	@GetMapping("/buscartudo")
+	public ResponseEntity<List<Post>> buscarTudo(@RequestParam(value = "texto", defaultValue = "") String texto, @RequestParam(value = "dataMin", defaultValue = "") String dataMin, @RequestParam(value = "dataMax", defaultValue = "") String dataMax) {
+		
+		texto = URL.decodificarParametro(texto);
+		Date min = URL.converterData(dataMin, new Date(0L));
+		Date max = URL.converterData(dataMax, new Date());
+		
+		List<Post> posts = servico.buscarTudo(texto, min, max);
 		return ResponseEntity.ok().body(posts);
 	}
 }
