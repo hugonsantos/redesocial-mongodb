@@ -21,7 +21,7 @@ public class PostServico {
 	}
 	
 	public List<Post> buscarTitulo(String texto) {
-		return repositorio.findByTituloContainingIgnoreCase(texto);
+		return repositorio.buscarTitulo(texto);
 	}
 	
 	public Post buscarPorId(String id) {
