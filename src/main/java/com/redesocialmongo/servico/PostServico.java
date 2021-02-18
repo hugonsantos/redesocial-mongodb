@@ -20,6 +20,10 @@ public class PostServico {
 		return repositorio.findAll();
 	}
 	
+	public List<Post> buscarTitulo(String texto) {
+		return repositorio.findByTituloContainingIgnoreCase(texto);
+	}
+	
 	public Post buscarPorId(String id) {
 		Optional<Post> post = repositorio.findById(id);
 		return post.orElseThrow(() -> new ObjetoNaoEncontradoExcecao("Objeto não encontrado"));
