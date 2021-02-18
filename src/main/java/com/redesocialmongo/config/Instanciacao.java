@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.redesocialmongo.dominio.Post;
 import com.redesocialmongo.dominio.Usuario;
+import com.redesocialmongo.dto.AutorDTO;
 import com.redesocialmongo.repositorio.PostRepositorio;
 import com.redesocialmongo.repositorio.UsuarioRepositorio;
 
@@ -35,10 +36,11 @@ public class Instanciacao implements CommandLineRunner {
 		Usuario alex = new Usuario(null, "Alex Green", "alex@gmail.com");
 		Usuario bob = new Usuario(null, "Bob Grey", "bob@gmail.com");
 		
-		Post post1 = new Post(null, sdf.parse("22/03/2021"), "Partiu viagem!", "Vou viajar para São Paulo, abraços!", maria);
-		Post post2 = new Post(null, sdf.parse("22/03/2021"), "Bom dia", "Acordei feliz hoje!", maria);
-		
 		usuarioRepositorio.saveAll(Arrays.asList(maria, alex, bob));
+		
+		Post post1 = new Post(null, sdf.parse("22/03/2021"), "Partiu viagem!", "Vou viajar para São Paulo, abraços!", new AutorDTO(maria));
+		Post post2 = new Post(null, sdf.parse("22/03/2021"), "Bom dia", "Acordei feliz hoje!", new AutorDTO(maria));
+		
 		postRepositorio.saveAll(Arrays.asList(post1, post2));
 	}
 }
